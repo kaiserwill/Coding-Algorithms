@@ -1,0 +1,28 @@
+//Detect if two words are anagrams
+#include<ctype.h>
+
+bool areAnagrams(string str1, string str2)
+{
+  //if the two strings are different in length, they are no anagrams
+  if(str1.length() != str2.length())
+    return false;
+  
+  //the following retains all non-alphabetical characters such as slash, dash or apostrophe
+  int len = str1.length();
+  str temp1, temp2;
+  int c1, c2=0;
+  for(int i=0; i<len; i++){
+    if(isalpha(str1[i]){
+      temp1[c1] = str[i];
+      c1++;
+    }
+    if(isalpha(str2[i]){
+      temp2[c2] = str[i];
+      c2++;
+    }
+  }
+    
+    //sort both strings and return if they are the same, if they are, then they are anagrams
+    return sort(temp1) == sort(temp2);
+}
+    
