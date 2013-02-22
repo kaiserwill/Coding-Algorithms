@@ -1,0 +1,13 @@
+//Multiplication without multiply
+
+int multiply(int x, int y){
+  if(x==0 || y==0)
+    return 0;
+  for(int i=0; i< y-1; i++){
+    x+=x;
+  }
+  if(x>0&&y>0 || x<0&&y<0)
+    return x;
+  else
+    return 0-x;
+}
