@@ -10,5 +10,6 @@ bool is Palindrome(int num){
     digit = num%10;
     reverse = reverse*10+digit
     num /=10;
+  }
   return n==reverse;
 }
