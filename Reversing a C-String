@@ -1,0 +1,30 @@
+//Reversing a C-string
+#include<cstring>
+
+void reverse(char* str){
+  
+  //no need for reversal if the string is 1 or 0 char long
+  if(strlen(str)<2)
+    return;
+  
+  char* end = str;
+  char temp;
+
+  //create a pointer that points to the last element of the c-string
+  if(str != NULL){
+    while(*end){
+      end++;
+    }
+    end--;
+
+    //while the end pointer and the starting pointer do not meet
+    //continuously swap the two chars to reverse the c-string
+    while(end>str){
+      temp=*end;
+      *end=*str;
+      *str=temp;
+      str++;
+      end--;
+    }
+  }
+}
