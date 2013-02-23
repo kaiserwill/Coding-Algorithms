@@ -1,0 +1,26 @@
+//Reversing a C++ String
+#include<string>
+
+//returns a new reversed string in the address of S in parameter
+String reverse(String& s){
+  
+  //edge case 1: string is empty or only 1 char long
+  //need only return the string itself
+  int len = s.length();
+  if(len<2)
+    return s;
+  
+
+  int min = 0;
+  int max = len-1;
+  char temp;
+  //swap the corresponding chars iteratively
+  while(min<=max){
+    temp = s[min];
+    s[min] = s[max];
+    s[max] = temp;
+    min++;
+    max--;
+  }
+  return s;
+}
