@@ -1,5 +1,6 @@
 //Detect if two words are anagrams
 #include<ctype.h>
+#include<string.h>
 
 //returns true if two words are anagrams
 //returns false if 1) the two words have different length, or 2) they are not anagram
