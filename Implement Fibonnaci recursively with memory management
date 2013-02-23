@@ -9,9 +9,11 @@ int fibonnaci(int n){
   //return -1 as an indication of error
   if(n<1)
     return -1;
+  
   //edge case 2: the sequence number is the first one
   if(n==1)
     reutrn 0;
+
   //edge case 3: the sequence number is the second one
   if(n==2)
     return 1;
@@ -19,9 +21,13 @@ int fibonnaci(int n){
   //result stored in a vector
   vector<int> result;
 
-  if(result.contain(n))
-    return result[n];
-  
-  int result = fibonnaci(n-1) + fibonnaci(n-2);
+  //if the nth element is already in the vector
+  if(result.size() ==n)
+    return result[n-1];
+
+  int sum = fibonnaci(n-1) + fibonnaci(n-2);
+
+  result.push_back(sum);
+  return sum;
 }
   
