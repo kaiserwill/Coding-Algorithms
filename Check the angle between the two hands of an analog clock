@@ -1,0 +1,25 @@
+//Check the angle between the two hands of an analog clock
+#include <math.h>
+
+//h is between 1 and 12
+//m i sbetween 0 and 59
+
+double getAngle(int h, int m){
+
+  //if the angles given are not within acceptable range return -1 as an error message
+  if(h<1 || h>12 || m<0 || m> 59)
+    return -1; 
+
+  //hour hand angle is affected by the minute hand angle
+  //hour angle = 360/12*h + 360/12*(m/60)
+  double h_angle = 0.5*m+30*h;
+
+  //minute angle = 360/12*(m/60)
+  double m_angle = 0.5*m;
+  
+  //the angle we are interested in in absolute value
+  double angle = abs(m_angle - h_angle);
+
+  //returns the smaller of the angle on a 360 degree scale
+  return min(angle, 360-angle);
+}
