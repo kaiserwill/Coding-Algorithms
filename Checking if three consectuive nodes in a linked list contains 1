@@ -1,0 +1,33 @@
+//Checking if three consectuive nodes in a linked list contains the desired element
+
+struct Node{
+  int val; //only contains 1 and 0;
+  Node* next;
+};
+
+//returns -1 if no three consectuive nodes have been found to contain 1
+//else returns the first element position of the three consecutive
+int checkConsecutive(Node* head){
+
+  //edge case 1: head pointer is empty
+  if(!head)
+    return -1;
+
+  int check = 0;
+  int pos = 1; 
+  Node* temp = head;
+
+  do
+  {
+    if(temp->val ==1)
+      check++;
+    else
+      check = 0;
+    if(check ==3)
+      return pos - 2;
+    temp = temp->next;
+    pos++;
+  }while(temp->next != NULL);
+  
+  return -1;
+}
