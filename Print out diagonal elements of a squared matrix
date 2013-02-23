@@ -1,0 +1,15 @@
+//Print out diagonal elements of a squared matrix
+#include<iostream>
+
+//assume matrix is a squared matrix
+//assumes dim is the correct dimention of the matrix
+void printDiag(int[][] matrix, int dim){
+  
+  //edge case 1: 
+  if(dim<1)
+    return;
+
+  for(inti=0; i<dim; i++){
+    cout << matrix[i][i] + " ";
+  }
+}
