@@ -1,10 +1,15 @@
 //Check if an  int is a palindrome
 #include<stdio.h>
-using namespace std;
+#include<math.h>
 
-
+//returns true if num is a palindrome
+//returns false otherwise
 bool is Palindrome(int num){
-  n = num; //create a dummy variable that holds original value of num
+  //convert int to a absolute number
+  n = abs(num); 
+  
+  //iteratively remove the digit number of the original int
+  //and append to the new int
   reverse = 0; 
   while(num>0){
     digit = num%10;
