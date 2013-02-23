@@ -10,9 +10,14 @@ struct Node{
 
 Node* reverse(Node* head){
 
-  //if the pointer given is null, the linked list is not implemented
+  //edge case 1: if the pointer given is null, the linked list is not implemented
   if(!head)
     return NULL;
+  
+  //edge case 2: the linked list only contains one element 
+  //no need to reverse it
+  if(head->next == NULL)
+    return head;
   
   Node*temp;
   Node*prev = NULL;
