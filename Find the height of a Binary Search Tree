@@ -1,0 +1,21 @@
+//Height of a Binary Search Tree
+//Assuming the tree is implemented using the struct Node
+//the function assumes the tree has been initialized and the parameter contains the root of the tree
+
+struct Node{
+  int val;
+  Node* left;
+  Node* right;
+};
+
+int getHeight(*Node root){
+    
+  //edge case of the root being empty
+  if(root == NULL)
+    return 0;
+  
+  //recursively return the height for both children of the Node
+  //returns the maximum of those two
+  //+1 for the root node not accounted in the recursion
+  return max(getHeight(root->left), getHeight(root->right))+1;
+}
