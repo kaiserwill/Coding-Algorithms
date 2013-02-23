@@ -1,0 +1,34 @@
+//Reversing a singly linked list iteratively
+//this algorithm assumes the linked list following implementation in a struct Node
+//and the linked list has been initialized properly
+
+struct Node{
+  Node*next;
+  int val;
+};
+
+
+Node* reverse(Node* head){
+
+  //if the pointer given is null, the linked list is not implemented
+  if(!head)
+    return NULL;
+  
+  Node*temp;
+  Node*prev = NULL;
+
+  //for every node that exist, create a temp pointer to the next
+  //swap the current node's next pointer to the previous one
+  //updating the previous node to the current node;
+  //updated the current node to the next node
+  while(head){
+    temp = head->next;
+    head->next = prev;
+    prev = head;
+    head = temp;
+  }
+
+  //returns the new head of the linkned list, which is the tail of the old linked list
+  return prev;
+}
+  
