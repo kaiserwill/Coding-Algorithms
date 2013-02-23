@@ -1,0 +1,27 @@
+//Implement Fibonnaci recursively with memory management
+//the typical fibonnaci with no memory management is extremely costly in stack memory
+//this method stores the results to avoid extra computation
+#include<vector>
+
+int fibonnaci(int n){
+  
+  //edge case 1: the sequence number given is not in acceptabler range
+  //return -1 as an indication of error
+  if(n<1)
+    return -1;
+  //edge case 2: the sequence number is the first one
+  if(n==1)
+    reutrn 0;
+  //edge case 3: the sequence number is the second one
+  if(n==2)
+    return 1;
+  
+  //result stored in a vector
+  vector<int> result;
+
+  if(result.contain(n))
+    return result[n];
+  
+  int result = fibonnaci(n-1) + fibonnaci(n-2);
+}
+  
