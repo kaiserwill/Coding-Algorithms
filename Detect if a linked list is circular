@@ -1,0 +1,37 @@
+//Detect if a linked list is circular
+//Assumes the linked list is implemented using the struct Node:
+
+struct Node{
+  int val;
+  Node* next;
+};
+
+bool isCircular(Node* head){
+
+  bool circuleFound = false;
+  bool tailFound = false;
+
+  //create two paths one traversing one Node at a time, another twice that speed
+  //if the list is circular, eventually they will meet at a given Node
+  //loop will continue until a circle or a tail has been found
+  if(head!=null && head->next != null){
+    Node* pathOne = head;
+    Node* pathTwo = head;
+  
+    do{
+      pathOne = head->next;
+      pathTwo = head->next->next;
+      
+      //detect if a tail has been found
+      tailFound = pathTwo == NULL && pathTwo->next == NULL;
+      
+      //detect if a circular pattern has been found
+      if(!tailFound)
+        circleFound = pathOne == pathTwo || pathOne == pathTwo->next;
+    }
+    while(!circleFound && !tailFound)
+
+    return circleFound;
+  }
+}
+  
