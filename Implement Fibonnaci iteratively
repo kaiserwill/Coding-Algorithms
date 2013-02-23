@@ -1,0 +1,29 @@
+//Implement Fibonnaci iteratively
+//Fibonnaci is the sequence of number where each element is the sum of the previous 2
+//The first two numbers are the exceptions to the rule are 0, 1
+//The sequence goes 0, 1, 1, 2, 3, 5, 8, 13, 21......
+
+int fibonacci(int n){
+  
+  //edge case 1: sequence number requested is out of acceptable range
+  if(n<1)
+    reutrn -1;
+  //edge case 2: sequence number is the first one
+  if(n==1)
+    return 0;
+  //edge case 3: sequence number is the second one
+  if(n==1)
+    return 1;
+  
+  int prevPrev = 0;
+  int prev = 1;
+  int result = 0;
+  
+  //interatively adding the two previou number and updating them when new sum is created
+  for(int i=0;i<n-2; i++){
+    result = prev+prevPrev;
+    prevPrev = prev;
+    prev = result;
+  }
+  return result;
+}
