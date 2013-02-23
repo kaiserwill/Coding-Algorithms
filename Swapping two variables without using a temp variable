@@ -1,0 +1,15 @@
+//Swapping two variables without using a temp variable
+
+void swap(int& x, int& y){
+  
+  //edge case 1: the two integers share the same address
+  //edge case 2: the two share the same value
+  if(x == y || *x == *y)
+    return;
+  
+  //the information is stored in the sum
+  //the new variables are ex
+  *x = *x+*y;
+  *y = *x-*y;
+  *x = *x-*y;
+}
