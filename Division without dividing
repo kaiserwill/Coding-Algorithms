@@ -1,0 +1,28 @@
+//Division without dividng
+#include<math.h>
+#include<stdio.h>
+
+//returns the integer division of a divided by b (a/b)
+//divides not completely divisble numbers, but does not return remainder
+int divide(int a, int b){
+  
+  //edge case 1: dividng by zero (Not a Number)
+  if(b==0){
+    cout << "not valid operation" << endl;
+    return NaN;
+  }
+
+  //edge case 2: zero dividing by a non-zero number
+  if(a==0)
+    return 0;
+  
+  //since divisuion is a glorified version of subtration
+  //we will iteratively subtract b from a until a is smaller than b (the remainder)
+  //the number of times we have gone through the operation is the division result
+  int i=0;
+  while(a>b){
+    a -=b;
+    i++;  
+  }
+  return i;
+}
