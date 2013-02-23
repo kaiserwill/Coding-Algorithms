@@ -6,6 +6,10 @@ struct Node{
   Node* next;
 };
 
+//returns two possible answers
+//true if circular traits in linked list detected
+//false if a tail in the linked list has been found
+
 bool isCircular(Node* head){
 
   bool circuleFound = false;
@@ -18,7 +22,8 @@ bool isCircular(Node* head){
     Node* pathOne = head;
     Node* pathTwo = head;
   
-    do{
+    do
+    {
       pathOne = head->next;
       pathTwo = head->next->next;
       
