@@ -1,11 +1,21 @@
 //Multiplication without multiply
+//Design an algorithm that multiply two integers x and y
 
 int multiply(int x, int y){
+
+  //if either x or y is 0, the multiplicatin is 0
   if(x==0 || y==0)
     return 0;
-  for(int i=0; i< y-1; i++){
-    x+=x;
+
+  //multiplication is the glorified version of addition
+  //this for loop adds a number to itself y-1 times, which is equievalent
+  //to x*y in evaluation
+  for(int i=0; i< abs(y)-1; i++){
+    abs(x)+= abs(x);
   }
+  
+  //this takes care of possible multiplication between a negative number
+  //and a positive number
   if(x>0&&y>0 || x<0&&y<0)
     return x;
   else
