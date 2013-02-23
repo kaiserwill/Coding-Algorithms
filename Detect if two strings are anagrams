@@ -6,11 +6,11 @@
 
 bool areAnagrams(string str1, string str2)
 {
-  //if the two strings are different in length, they are no anagrams
+  //edge case 1: if the two strings are different in length, they are no anagrams
   if(str1.length() != str2.length())
     return false;
   
-  //the following retains all non-alphabetical characters such as slash, dash or apostrophe
+  //removes non-alphabetical characters such as slash, dash or apostrophe
   int len = str1.length();
   str temp1, temp2;
   int c1, c2=0;
