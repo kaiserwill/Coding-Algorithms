@@ -1,0 +1,27 @@
+//Implement bubble sort of an array of int
+
+void bubblesort(int[] arr, int len){
+  
+  //create a boolean that keeps track if the array has been swapped in that given iteration
+  bool swapp_check = true;
+
+  int j=0;
+  int temp;
+  
+  //continuously going throught array swapping two elements at a time
+  //if any swapping has been made, return true so the while loop commits to a new iteration
+  //the while loop terminates when no swapping has been made in any given traversal
+  while(swapp_check){
+
+    swapp_check = false;
+    j++;
+    for(int i=0; i<n-j; i++){
+      if(arr[i] >arr[i+1]){
+        temp = arr[i];
+        arr[i] = arr[i+1];
+        arr[i+1] = temp;
+        swapp_check = true;
+      }
+    }
+  }
+}
