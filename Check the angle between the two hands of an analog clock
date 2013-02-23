@@ -1,8 +1,10 @@
 //Check the angle between the two hands of an analog clock
 #include <math.h>
 
-//h is between 1 and 12
-//m i sbetween 0 and 59
+//h is only allowed between 1 and 12
+//m is only allowed between 0 and 59
+//returns the angle in double precision floating points
+//returns -1 if detecting an error in parameter
 
 double getAngle(int h, int m){
 
