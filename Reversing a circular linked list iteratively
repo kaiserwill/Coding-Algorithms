@@ -1,0 +1,42 @@
+//Reversing a circular linked list iteratively
+//this algorithm assumes the linked list following implementation in a struct Node
+//and the linked list has been initialized properly
+
+struct Node{
+  Node*next;
+  int val;
+};
+
+Node* reverse(*Node head){
+  
+  //if the head pointer given is null, the linked list is not implemented
+  if(!head){
+    return NULL;
+  }
+
+  Node* curr = head;
+  Node* prev = NULL;
+  Node* temp;
+  
+  //the sasme process as the singly linked list
+  //assign a temporary next pointer to the next Node
+  //swap the current Node's next pointer to point to its previous
+  //update the previous node to the current node
+  //update the current node to the next node
+  while(curr){
+    temp = curr->next;
+    curr->next = prev;
+    prev = curr;
+    curr = temp;
+
+    //if we detect that the current node has made its way to the original head
+    //we have discovered the end of the circularly linked list
+    if(curr == head)
+      break;
+  }
+  
+  //update the original head to be the tail and return the new head pointer
+  head->next = prev;
+  head = prev;
+  return head;
+}
