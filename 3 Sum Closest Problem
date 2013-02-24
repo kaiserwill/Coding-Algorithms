@@ -27,8 +27,8 @@ int threeSumClosest(vector<int> &num, int target){
       if(abs(target-sum)<abs(target-cloesestSum))
         closestSum = sum;
     }
-    One++;
-    Two++;
+    one++;
+    two++;
   }
   return closestSum; 
 }
