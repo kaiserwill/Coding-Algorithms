@@ -1,0 +1,89 @@
+//Preliminary implementation of a Deck of Cards
+//only the basic structure is implemented
+
+
+class Card
+{
+    char m_suite;
+    int m_num;
+  public:
+    Card(char s, int n)
+    : m_suite(s), m_num(n) {}
+    char getSuite() { return m_suite; }
+    int getNum() {  return m_num; }
+    bool isFaceCard() { return m_num>10; };
+};
+
+class Spade : public Card
+{
+  public:
+    Spade(int n)
+    : Card('s', n) {}
+};
+
+class Heart : public Card
+{
+  public:
+    Heart(int n)
+    : Card('h', n) {}
+};
+
+class Diamond : public Card
+{
+  public:
+    Diamond(int n)
+    : Card('d', n) {}
+};
+
+class CLub : public Card
+{
+  public:
+    Club(int n)
+    : Card('c', n) {}
+};
+
+class Joker : public Card;
+{
+  public:
+    Joker()
+    : Card('j', 0) {}
+};
+
+class Deck
+{
+    vector<Card*> m_set;
+  public:
+    Deck()
+    {
+      Card* c;
+      for(int i=1; i<14; i++)
+      {
+        c = new Spade(i);
+        m_set.push_back(c);
+      }
+      for(int i=1; i<14; i++)
+      {
+        c = new Club(i);
+        m_set.push_back(c);
+      }
+      for(int i=1; i<14; i++)
+      {
+        c = new Diamond(i);
+        m_set.push_back(c);
+      }
+      for(int i=1; i<14; i++)
+      {
+        c = new Heart(i);
+        m_set.push_back(c);
+      }
+      c = new Joker();
+      m_set.push_back(c);
+    }
+    void shuffle();                     //use random number generator to rearrange order of the vector
+    bool remove(Card* c);               //remove card if given the pointer
+    bool remove(char suite, int num);   //remove card if given the suite and number
+    bool removeSuite(char suite);       //remove entire suite
+    bool removeNum(int num);            //remove all cards with the number
+    bool isComplete();                  //return if deck is full
+    bool containsJoker();               //return true if deck contain joker
+};
