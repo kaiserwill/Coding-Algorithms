@@ -1,4 +1,5 @@
-//Implement a OOP version of a chess game
+//This is a preliminary implementation of a OOP version of a chess game
+//The functions are not completed implemented but the basic structure is there
 
 
 //this class provides coordinate support for all chess pieces
@@ -161,9 +162,12 @@ class Player
     bool setMyOpponent(Player* p){ m_opponent = p;}
     Player* getMyOpponent() { return m_opponent; }
     bool isMyTurn() { return m_turn; }
+    
     void checkmate() { m_checkmate = true; }
     bool getCheckmate() { return m_checkmate; }
-    bool checkOpp() { return m_check; }
+    void checkOpp() { m_check = true; }
+    bool getMyCheck() { return m_check; }
+
     ~Player();
 }
   
@@ -185,84 +189,26 @@ class ChessBoard
     : m_minX(1), m_minY(1), m_maxX(8), m_maxY(8)
     {
       //white piece initialization
-      Chesspiece* wk = new King(x, y, 'w');
-      m_whitePieceSet.push_back(k);
-      Chesspiece* q = new Queen(x, y, 'w', wk);
-      m_whitePieceSet.push_back(q);
-
-      Chesspiece* b = new Bishop(x, y, 'w', wk);
-      Chesspiece* k = new Knight(x, y, 'w', wk);
-      Chesspiece* r = new Rook(x, y, 'w', wk);
-      m_whitePieceSet.push_back(b);
-      m_whitePieceSet.push_back(k);
-      m_whitePieceSet.push_back(r);
-
-      Chesspiece* b = new Bishop(x, y, 'w', wk);
-      Chesspiece* k = new Knight(x, y, 'w', wk);
-      Chesspiece* r = new Rook(x, y, 'w', wk);
-      m_whitePieceSet.push_back(b);
-      m_whitePieceSet.push_back(k);
-      m_whitePieceSet.push_back(r);
-      
-      Chesspiece* p = new Pawn(x, y, 'w', wk);
-      m_whitePieceSet.push_back(p);
-      p = new Pawn(x, y, 'w', wk);
-      m_whitePieceSet.push_back(p);
-      p = new Pawn(x, y, 'w', wk);
-      m_whitePieceSet.push_back(p);
-      p = new Pawn(x, y, 'w', wk);
-      m_whitePieceSet.push_back(p);
-      p = new Pawn(x, y, 'w', wk);
-      m_whitePieceSet.push_back(p);
-      p = new Pawn(x, y, 'w', wk);
-      m_whitePieceSet.push_back(p);
-      p = new Pawn(x, y, 'w', wk);
-      m_whitePieceSet.push_back(p);
-      p = new Pawn(x, y, 'w', wk);
-      m_whitePieceSet.push_back(p);
-    
       //black piece initialization
-      Chesspiece* bk = new King(x, y, 'b');
-      m_blackPieceSet.push_back(k);
-      Chesspiece* q = new Queen(x, y, 'b', bk);
-      m_blackPieceSet.push_back(q);
-
-      Chesspiece* b = new Bishop(x, y, 'b', bk);
-      Chesspiece* k = new Knight(x, y, 'b', bk);
-      Chesspiece* r = new Rook(x, y, 'b', bk);
-      m_blackPieceSet.push_back(b);
-      m_blackPieceSet.push_back(k);
-      m_blackPieceSet.push_back(r);
-
-      b = new Bishop(x, y, 'b', bk);
-      k = new Knight(x, y, 'b', bk);
-      r = new Rook(x, y, 'b', bk);
-      m_blackPieceSet.push_back(b);
-      m_blackPieceSet.push_back(k);
-      m_blackPieceSet.push_back(r);
-      
-      Chesspiece* p = new Pawn(x, y, 'b', bk);
-      m_blackPieceSet.push_back(p);
-      p = new Pawn(x, y, 'b', bk);
-      m_blackPieceSet.push_back(p);
-      p = new Pawn(x, y, 'b', bk);
-      m_blackPieceSet.push_back(p);
-      p = new Pawn(x, y, 'b', bk);
-      m_blackPieceSet.push_back(p);
-      p = new Pawn(x, y, 'b', bk);
-      m_blackPieceSet.push_back(p);
-      p = new Pawn(x, y, 'b', bk);
-      m_blackPieceSet.push_back(p);
-      p = new Pawn(x, y, 'b', bk);
-      m_blackPieceSet.push_back(p);
-      p = new Pawn(x, y, 'b', bk);
-      m_blackPieceSet.push_back(p);
     }
-    void killed(Chesspiece* c)
+    void kill(Chesspiece* c)
     {
       char s = c->getMySide();
-      
-      
+      if(s == 'w')
+      {
+        m_whitePieceGrave.push_back(c);
+        m_whitePieceSet.erase(c);
+      }
+      else if(s=='b')
+      {
+        m_blackPieceGrave.push_back(c);
+        m_blackPieceSet.erase(c);
+      }
+    }
+    void pawnRevive(Chesspiece* p, Chesspiece* target)
+    {
+        //removes pawn from game, and add target to the game
+    }
     ~ChessBoard()
     { delete m_board; }
 }
@@ -290,7 +236,7 @@ class ChessGame
         {
             if(my_playerOne->getmyTurn())
             {
-              if(my_playerOne->getOpponent()->checkOpp())
+              if(my_playerOne->getOpponent()->getMyCheck())
               { 
                 //get all movemaps available that would rescue the king
                 if(no piece can rescue king)
@@ -304,7 +250,7 @@ class ChessGame
             }
             else
             {
-              if(my_playerTwo->getOpponent()->checkOpp())
+              if(my_playerTwo->getOpponent()->getMyCheck())
               { 
                 //get all movemaps available that would rescue the king
                 if(no piece can rescue king)
