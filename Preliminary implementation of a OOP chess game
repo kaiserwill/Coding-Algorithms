@@ -1,0 +1,341 @@
+//Implement a OOP version of a chess game
+
+
+//this class provides coordinate support for all chess pieces
+class Coordinate
+{
+    int m_x;    //x coordinate
+    int m_y;    //y coordinate
+  public:
+    Coordinate(int x, int y)
+    : m_x(x), m_y(y) {}
+    int getX() const { return m_x;  }
+    int getY() const { return m_y;  }
+};
+
+//this class provides the basis for any specialized chess piece in the game
+class Chesspiece
+{
+    bool m_life;                        //chess piece is either alive(true) or dead(false)
+    char m_side;                        //chess piece is either white('w') or black('b')
+    char m_ID;                          //ID which specialized piece it is
+    Coordinate m_coordinate;            //the chess piece's current coordinate
+    vector<Coordinate> m_possibleMoves; //vector of all possible moves
+  public:
+    Chesspiece(int x, int y, char side, char id)
+    : m_coordinate(x, y), m_life(true), m_side(side), m_ID(id){}
+
+    virtual bool getMyMoveMap() = 0;  //push_back all possible moves to a vector
+    virtual void move() = 0;          //moves the piece by choosing one coordinate the vector
+    void addMoves(Coordinate x) { m_possibleMoves.push_back(x); }
+
+    Coordinate getMyCoordinate() { return m_coordinate; }
+    
+    bool getMyLife() { return m_life; }
+    bool getMySide() { return m_side; }
+    ~Chesspiece();
+}
+
+//Specific King attributes
+// 1) if King is in the move map of any opponent piece, it is checked
+// 2) if King is checkedmated, player loses
+class King: public Chesspiece
+{ 
+    bool m_checked;               //return true if King is being checked
+  public:
+    King(int x, int y, char s);
+    : Chesspiece(x, y, s, 'k'), m_checked(false) {}
+       
+    virtual bool getMyMoveMap();  //continuously call addMoves() from base class
+    virtual void move();          //set new coordinate and erase possible moves vector
+
+    void gotChecked() { m_checked = true; }
+    void rescued()    { m_checked = false; }
+    bool getCheckStatus() { return m_checked; }
+    ~King();
+}
+
+//Two modes for Queen to move:
+// 1) move freely when m_king is not checked
+// 2) can only move to resuce the king
+class Queen: public Chesspiece
+{
+    Chesspiece* m_king;               //references its king
+  public:
+    Queen(int x, int y, char s, Chesspiece* k)
+    : Chesspiece(x, y, s, 'q') m_king(k){}
+
+    Chesspiece* getMyKing() { return m_king; }
+
+    virtual bool getMyMoveMap();      //continuously call addMoves() from base class
+    virtual void move();              //set new coordinate and erase possible moves vector
+    ~Queen();
+}
+
+//Two modes when Bishop is moving
+// 1) move freely when m_king is not checked
+// 2) can only move to resuce king
+class Bishop: public Chesspiece
+{
+    Chesspiece* m_king;             //refrences its king
+  public:
+    Bishop (int x, int y, char s, Chesspiece* k);
+    : Chesspiece(x, y, s, 'b') m_king(k){}
+
+    Chesspiece* getMyKing() { return m_king; }
+
+    virtual bool getMyMoveMap();    //continuously call addMoves() from base class
+    virtual void move();            //set new coordinate and erase possible moves vector
+    ~Bishop();
+}
+
+//Two modes when Rook is moving
+// 1) move freely when m_king is not checked
+// 2) can only move to resuce king
+class Rook: public CHesspiece
+{
+    Chesspiece* m_king;             //refrences its king
+  public:
+    Rook(int x, int y, char s, Chesspiece* k);
+    : Chesspiece(x, y, s, 'r') m_king(k){}
+
+    Chesspiece* getMyKing() { return m_king; }
+
+    virtual void move();
+    virtual bool getMyMoveMap();
+    ~Rook();
+}
+
+//Two modes when Knight is moving
+// 1) move freely when m_king is not checked
+// 2) can only move to resuce king
+class Knight: public Chesspiece
+{
+    Chesspiece* m_king;
+  public:
+    Knight(int x, int y, char s, Chesspiece* k);
+    : Chesspiece(x, y, s, 'k') m_king(k){}
+
+    Chesspiece* getMyKing() { return m_king; }
+
+    virtual void move();
+    virtual bool getMyMoveMap();
+    ~Knight();
+}
+
+//Two modes when moving
+// 1) move freely when m_king is not checked
+// 2) can only move to resuce king
+class Pawn: public Chesspiece
+{
+  bool m_reachedEnd;
+  Chesspiece* m_king;
+  public:
+    Pawn(int x, int y, char s Chesspiece* k);
+    : Chesspiece(x, y, s, 'p') m_reachedEnd(false), m_king(k){}
+
+    Chesspiece* getMyKing() { return m_king; }
+
+    virtual void move();
+    virtual bool getMyMoveMap();
+    void ReachedEnd() { m_reachedEnd = true;}
+    ~Pawn();
+}
+
+class Player
+{
+    char m_side;        //player can assume either white 'w' or black 'b'
+    bool m_turn;        //true if player's turn, false if not
+    bool m_checkmate;   //true if you checkmate your opponent
+    bool m_check;       //true if you check your opponent
+    Player* m_opponent; //pointer to opponent
+    ChessBoard* m_board //references the chessboard playing
+  public:
+    Player(char side)
+    : m_checkmate(false), m_side(side)
+    { 
+      if(m_side == 'w') { m_turn = true;}
+      else {  m_turn = false; }
+    }
+    void movePiece(); 
+    bool setMyOpponent(Player* p){ m_opponent = p;}
+    Player* getMyOpponent() { return m_opponent; }
+    bool isMyTurn() { return m_turn; }
+    void checkmate() { m_checkmate = true; }
+    bool getCheckmate() { return m_checkmate; }
+    bool checkOpp() { return m_check; }
+    ~Player();
+}
+  
+  
+
+class ChessBoard
+{
+    vector<Chesspiece*> m_whitePieceSet;
+    vector<Chesspiece*> m_whitePieceGrave;
+    vector<Chesspiece*> m_blackPieceSet;
+    vector<Chesspiece*> m_blackPieceGrave;
+    const int m_minX;
+    const int m_maxX;
+    int m_minY;
+    int m_maxY;
+
+  public:
+    ChessBoard(); //initialize all required chesspieces to be inserted into the board
+    : m_minX(1), m_minY(1), m_maxX(8), m_maxY(8)
+    {
+      //white piece initialization
+      Chesspiece* wk = new King(x, y, 'w');
+      m_whitePieceSet.push_back(k);
+      Chesspiece* q = new Queen(x, y, 'w', wk);
+      m_whitePieceSet.push_back(q);
+
+      Chesspiece* b = new Bishop(x, y, 'w', wk);
+      Chesspiece* k = new Knight(x, y, 'w', wk);
+      Chesspiece* r = new Rook(x, y, 'w', wk);
+      m_whitePieceSet.push_back(b);
+      m_whitePieceSet.push_back(k);
+      m_whitePieceSet.push_back(r);
+
+      Chesspiece* b = new Bishop(x, y, 'w', wk);
+      Chesspiece* k = new Knight(x, y, 'w', wk);
+      Chesspiece* r = new Rook(x, y, 'w', wk);
+      m_whitePieceSet.push_back(b);
+      m_whitePieceSet.push_back(k);
+      m_whitePieceSet.push_back(r);
+      
+      Chesspiece* p = new Pawn(x, y, 'w', wk);
+      m_whitePieceSet.push_back(p);
+      p = new Pawn(x, y, 'w', wk);
+      m_whitePieceSet.push_back(p);
+      p = new Pawn(x, y, 'w', wk);
+      m_whitePieceSet.push_back(p);
+      p = new Pawn(x, y, 'w', wk);
+      m_whitePieceSet.push_back(p);
+      p = new Pawn(x, y, 'w', wk);
+      m_whitePieceSet.push_back(p);
+      p = new Pawn(x, y, 'w', wk);
+      m_whitePieceSet.push_back(p);
+      p = new Pawn(x, y, 'w', wk);
+      m_whitePieceSet.push_back(p);
+      p = new Pawn(x, y, 'w', wk);
+      m_whitePieceSet.push_back(p);
+    
+      //black piece initialization
+      Chesspiece* bk = new King(x, y, 'b');
+      m_blackPieceSet.push_back(k);
+      Chesspiece* q = new Queen(x, y, 'b', bk);
+      m_blackPieceSet.push_back(q);
+
+      Chesspiece* b = new Bishop(x, y, 'b', bk);
+      Chesspiece* k = new Knight(x, y, 'b', bk);
+      Chesspiece* r = new Rook(x, y, 'b', bk);
+      m_blackPieceSet.push_back(b);
+      m_blackPieceSet.push_back(k);
+      m_blackPieceSet.push_back(r);
+
+      b = new Bishop(x, y, 'b', bk);
+      k = new Knight(x, y, 'b', bk);
+      r = new Rook(x, y, 'b', bk);
+      m_blackPieceSet.push_back(b);
+      m_blackPieceSet.push_back(k);
+      m_blackPieceSet.push_back(r);
+      
+      Chesspiece* p = new Pawn(x, y, 'b', bk);
+      m_blackPieceSet.push_back(p);
+      p = new Pawn(x, y, 'b', bk);
+      m_blackPieceSet.push_back(p);
+      p = new Pawn(x, y, 'b', bk);
+      m_blackPieceSet.push_back(p);
+      p = new Pawn(x, y, 'b', bk);
+      m_blackPieceSet.push_back(p);
+      p = new Pawn(x, y, 'b', bk);
+      m_blackPieceSet.push_back(p);
+      p = new Pawn(x, y, 'b', bk);
+      m_blackPieceSet.push_back(p);
+      p = new Pawn(x, y, 'b', bk);
+      m_blackPieceSet.push_back(p);
+      p = new Pawn(x, y, 'b', bk);
+      m_blackPieceSet.push_back(p);
+    }
+    void killed(Chesspiece* c)
+    {
+      char s = c->getMySide();
+      
+      
+    ~ChessBoard()
+    { delete m_board; }
+}
+
+
+class ChessGame
+{
+    ChessBoard* m_chessBoard;
+    Player* m_playerOne;
+    Player* m_playerTwo;
+
+  public:
+    ChessGame()
+    :
+    {
+      m_chessBoard = new ChessBoard();
+      m_playerOne = new Player('w');
+      m_playerTwo = new Player('b');
+      m_playerOne->setOpponent(m_playerTwo);
+      m_playerTwo->setOpponent(m_playerOne);
+    }
+    void play()
+    {
+        while(1)
+        {
+            if(my_playerOne->getmyTurn())
+            {
+              if(my_playerOne->getOpponent()->checkOpp())
+              { 
+                //get all movemaps available that would rescue the king
+                if(no piece can rescue king)
+                  m_playerOne->getOpponent()->checkmate()
+                  break;
+              }
+              else
+              {
+                //free to make any move
+              }
+            }
+            else
+            {
+              if(my_playerTwo->getOpponent()->checkOpp())
+              { 
+                //get all movemaps available that would rescue the king
+                if(no piece can rescue king)
+                  m_playerTwo->getOpponent()->checkmate()
+                  break;
+              }
+              else
+              {
+                //free to make any move
+              }
+            }
+        }
+    }
+    ~ChessGame()
+    {
+      delete m_board;
+      delete m_playerOne;
+      delete m_playerTwo;
+    }
+}
+  
+
+int main() //this is the chess game
+{
+  ChessGame myGame = new ChessGame();
+  ChessGame.play();
+}
+  
+
+
+
+
+
+
