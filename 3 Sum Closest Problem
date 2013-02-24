@@ -5,5 +5,28 @@
 //For example, given array S = {-1 2 1 -4}, and target = 1.
 //The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).
 
-int threeSumClosest(vector<int> &num){
+int threeSumClosest(vector<int> &num, int target){
+  
+  //since we are assuming there would be exactly one solution
+  //we do no need to check if the size of the vector is less than 3
+  //since in that case there would be guaranteed 0 solution
+  
+  int len = num.size();
+  
+  int one = 0;
+  int two = 1;
+  int closestSum = num[0]+num[1]+num[2];
+  
+  for(int i=2; i<len; i++)
+  {
+    for(int three=i; three<len; three++)
+    {
+      int sum = num[one]+num[two]+num[three];
+      if(sum<closestSum)
+        closestSum = sum;
+    }
+    One++;
+    Two++;
+  }
+  return closestSum; 
 }
