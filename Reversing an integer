@@ -1,0 +1,9 @@
+//Reversing an integer
+
+int reverseInt(int n)
+{
+  while(n>10
+  int result = 0;
+  int digit = n%10;
+  int result = result*10 + digit;
+  
