@@ -16,7 +16,7 @@ int divide(int a, int b){
   if(a==0)
     return 0;
   
-  //since divisuion is a glorified version of subtration
+  //since division is just the glorified version of subtration
   //we will iteratively subtract b from a until a is smaller than b (the remainder)
   //the number of times we have gone through the operation is the division result
   int i=0;
