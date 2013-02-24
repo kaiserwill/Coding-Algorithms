@@ -1,9 +1,14 @@
 //Reversing an integer
+//Example: 2973 -> 3792
 
-int reverseInt(int n)
-{
-  while(n>10
-  int result = 0;
-  int digit = n%10;
-  int result = result*10 + digit;
+int reverse(int n){
   
+  int result = 0;
+
+  while(n>0){
+    int digit = n%10;
+    int result = result*10 + digit;
+    n /=10;
+  }
+  return result;
+}
