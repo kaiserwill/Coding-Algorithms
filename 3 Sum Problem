@@ -24,7 +24,7 @@ bool contain(vector<vector<int> > r, vector<int> t){
   return false;
 }
 
-vector<vector<int> > 3sum(vector<int> &num){
+vector<vector<int> > threeSum(vector<int> &num){
   
   int len = num.size();
   vector<vector<int> > result;
