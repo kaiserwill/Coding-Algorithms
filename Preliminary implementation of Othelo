@@ -81,6 +81,6 @@ class Game
 
 int main()
 {
-    Game newGame();
+    Game newGame(); 
     newGame.displayWinner(newGame.play());
 }
