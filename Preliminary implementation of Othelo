@@ -1,0 +1,86 @@
+//Preliminary implentation of Othello game
+//Othello is played as follows: Each Othello piece is white on one side and black on the other. 
+//When a piece is surrounded by its opponents on both the left and right sides, or both the top and bottom, 
+//it is said to be captured and its color is flipped. On your turn, you must capture at least one 
+//of your opponent’s pieces. The game ends when either user has no more valid moves, and the 
+//win is assigned to the person with the most pieces. Implement the object oriented design for Othello.
+
+class Piece
+{
+        char m_side;
+        int m_x;
+        int m_y;
+    public:
+        Piece(char s, int x, int y)
+        : m_side(s) m_x(x), m_y(y){}
+        char getMySide() { return m_side; }
+        int getX() { return m_x; }
+        int getY() { return m_y; }
+        ~Piece();
+};
+
+class Board
+{
+        vector<Piece*> m_set;
+    public:
+        Board()
+        bool notFull();
+        ~Board()
+};
+
+class Player
+{
+        char m_side;
+        int m_count;
+        Board* m_board;
+    public:
+        Player(char s)
+        : m_side(s) m_count(0){}
+        bool makeMove(int x, int y);
+        int getCount() { return m_count; }
+};
+
+class Game
+{
+        Player* m_playerOne;
+        Player* m_playerTwo;
+        Board* m_board;
+    public:
+        Game()
+        {
+            m_playerOne = new Player('w');
+            m_playerTwo = new Player('b');
+            m_board = new Board();
+        }
+        Player* play()
+        {
+            while(m_board->notFull())
+            {
+                if(!m_playerOne->makeMove())
+                    break;
+                else if(!m_playerTwo->makeMove())
+                    break;
+            }
+            if(m_playerOne->getCount() > m_playerTwo->getCount())
+                return m_playerOne;
+            else if(m_playerOne->getCount() < m_playerTwo->getCount()
+                return m_playerTwo;
+            else
+                return NULL;
+        }
+        void displayWinner(Player* p)
+        {
+            if(p == m_playerOne)
+                cout<< "Player One Wins"<<endl;
+            else if (p == m_playerTwo)
+                cout<< "Player Two Wins"<<endl;
+            else
+                cout<< "It was a draw"<<endl;
+        }   
+};  
+
+int main()
+{
+    Game newGame();
+    newGame.displayWinner(newGame.play());
+}
