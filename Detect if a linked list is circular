@@ -12,7 +12,7 @@ struct Node{
 
 bool isCircular(Node* head){
 
-  bool circuleFound = false;
+  bool circleFound = false;
   bool tailFound = false;
 
   //create two paths one traversing one Node at a time, another twice that speed
@@ -28,7 +28,7 @@ bool isCircular(Node* head){
       pathTwo = head->next->next;
       
       //detect if a tail has been found
-      tailFound = pathTwo == NULL && pathTwo->next == NULL;
+      tailFound = (pathTwo == NULL && pathTwo->next == NULL);
       
       //detect if a circular pattern has been found
       if(!tailFound)
