@@ -1,0 +1,34 @@
+//Program that sums all prime numbers from 0 to n
+
+//this helper function returns if num is a prime number
+bool isPrime(int num){
+  
+  //continually divide the number by all natural numbers less than it until reaching 1
+  //if at any point the number is divisible with 0 as remainder, then it is not prime
+  int divisor;
+  for(divisor=num-1; divisor>1; divisor--){
+    if(num%divisor ==0)
+      return false;
+  }
+  return true;
+}
+
+int sumAllPrime(int num){
+  int sum =0;
+  
+  //edge case 1: the number given is less than 2
+  //0 and 1 are neither prime or composites
+  //any number less than 0 is not considered a natural number
+  //prime number is only valid for natural numbers
+  if(num<2)
+    return sum;
+  
+  //continually check all number from num to 2 are primes
+  //if they are, add them to the sum
+  int primeCandidate;
+  for(primeCandidate=num; primeCandidate>1; primeCandidate--){
+    if(isPrime(primeCandidate))
+      sum +=primeCandidate;
+  }
+  return sum;
+}
