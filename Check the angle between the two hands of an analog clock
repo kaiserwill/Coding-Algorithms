@@ -1,4 +1,4 @@
-//Check the angle between the two hands of an analog clock
+//Check the angle between the hour hand and the minute hand of an analog clock
 #include <math.h>
 
 //hour hand is only allowed between 1 and 12
@@ -8,7 +8,8 @@
 
 double getAngle(int h, int m){
 
-  //if the angles given are not within acceptable range return -1 as an error message
+  //edge case 1: the parameters are not in range
+  //\return -1 as an error message
   if(h<1 || h>12 || m<0 || m> 59)
     return -1; 
 
