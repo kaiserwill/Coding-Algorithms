@@ -3,7 +3,7 @@
 #include<stdio.h>
 
 //returns the integer division of a divided by b (a/b)
-//divides not completely divisble numbers, but does not return remainder
+//Operate on non-complete division with remainders
 int divide(int a, int b){
   
   //edge case 1: dividng by zero (Not a Number)
