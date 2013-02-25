@@ -19,10 +19,8 @@ int threeSumClosest(vector<int> &num, int target){
   int two = 1;
   int closestSum = num[0]+num[1]+num[2];
   
-  for(int i=2; i<len; i++)
-  {
-    for(int three=i; three<len; three++)
-    {
+  for(int i=2; i<len; i++){
+    for(int three=i; three<len; three++){
       int sum = num[one]+num[two]+num[three];
       if(abs(target-sum)<abs(target-cloesestSum))
         closestSum = sum;
