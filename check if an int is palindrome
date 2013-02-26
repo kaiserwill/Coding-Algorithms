@@ -1,20 +1,18 @@
-//Check if an  int is a palindrome
-#include<stdio.h>
-#include<math.h>
+//Check if an integer is a palindrome
 
-//returns true if num is a palindrome
-//returns false otherwise
-bool is Palindrome(int num){
+bool isPalindrome(int num){
   //convert int to a absolute number
-  n = abs(num); 
-  
+  int n= abs(num); 
+  int absNum=n;
+
   //iteratively remove the digit number of the original int
-  //and append to the new int
-  reverse = 0; 
-  while(num>0){
-    digit = num%10;
-    reverse = reverse*10+digit
-    num /=10;
-  }
-  return n==reverse;
+	//and append to the new int
+	int reverse = 0; 
+	int digit;
+	while(n>0){
+		digit = n%10; 
+		reverse = reverse*10+digit;	
+		n /=10;
+	}
+	return absNum==reverse;
 }
