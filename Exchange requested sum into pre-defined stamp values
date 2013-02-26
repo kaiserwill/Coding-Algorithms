@@ -1,0 +1,63 @@
+//Exchange requested sum into pre-defined stamp values
+
+#include <iostream>
+using namespace std;
+
+class Solution{
+public:
+  //this function takes 2 parameters
+	//parameter one is an int array with all the available stamps in descending order
+	//(it asusmes it is in that order, if it is not there must be a function that sorts it before using this function)
+	//parameter two is the interested ammount we want to exchange in stamp value
+	int min_number_of_stamps (const int* stampsArr, int request){
+		
+		//edge case 1: the array is empty
+		//edge case 2: the request is less than or equal to zero
+		//both case result in logical or functional error return 0 to exit out
+		if(stampsArr==0 || request<=0){
+			cout << "The parameter you enetered are invalid. Please edit your request." << endl;
+			return 0;
+		}
+		
+		//create iterator it to go through the first stamp value that is smaller than the requested value
+		int count=0;
+		int it=0;
+		while(request<stampsArr[it])
+			it++;
+
+		//continuously subtract the request value by the current available stamp value until the request is smaller than the stamp value
+		//increase the iterator to the next stamp value that is smaller than requested number and repeat the process
+		while(request>0){
+			while(request>=stampsArr[it]){
+				request -=stampsArr[it];
+				cout<< "Dispensed a " << stampsArr[it] << " cent stamp" <<endl;
+				count++;
+			}
+			it++;
+		}
+
+		//print out the number of stamps dispensed and return its value
+		cout<< "total count: " << count << " stamps" << endl;;
+		return count;
+	}
+};
+
+int main()
+{
+	//test cases to make sure it works
+	int arr[] = {20000, 15000, 12000, 9000, 5000, 3000, 1000, 500, 100, 25, 10, 5, 1};
+	Solution s;
+	s.min_number_of_stamps(arr, 25356);
+	cout<<endl;
+	s.min_number_of_stamps(arr, 12849);
+	cout<<endl;
+	s.min_number_of_stamps(arr, 73062);
+	cout<<endl;
+	s.min_number_of_stamps(arr, 9341);
+	cout<<endl;
+	s.min_number_of_stamps(arr, 16527);
+	cout<<endl;
+	s.min_number_of_stamps(arr, 0);
+	cout<<endl;
+	s.min_number_of_stamps(arr, -1);
+}
