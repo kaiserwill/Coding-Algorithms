@@ -3,7 +3,7 @@
 bool isPalindrome(int num){
   //convert int to a absolute number
   int n= abs(num); 
-  int absNum=n;
+  int absNum=n; 
 
   //iteratively remove the digit number of the original int
 	//and append to the new integer
