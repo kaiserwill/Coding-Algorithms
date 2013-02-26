@@ -16,6 +16,6 @@ int getHeight(*Node root){
   
   //recursively return the height for both children of the Node
   //returns the maximum of those two
-  //+1 for the root node not accounted in the recursion
+  //+1 for every depth accessed
   return max(getHeight(root->left), getHeight(root->right))+1;
 }
