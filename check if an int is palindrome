@@ -6,7 +6,7 @@ bool isPalindrome(int num){
   int absNum=n;
 
   //iteratively remove the digit number of the original int
-	//and append to the new int
+	//and append to the new integer
 	int reverse = 0; 
 	int digit;
 	while(n>0){
