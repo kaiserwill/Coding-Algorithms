@@ -1,0 +1,48 @@
+//implement an algorithm to delete a node in the middle of a single linked list
+
+//assumes Linked list implemented like the folliwng:
+
+struct Node
+{
+  Node* next;
+  int data;
+};
+
+bool deleteNode(int n, Node head)
+{
+  //edge case 1: targeted node is not a natural number greater than 1
+  //solution: cannot proceed
+  if(n<1)
+    return false;
+  
+  //edge case 2: targed node is the first node
+  //solution: set head to the next node and delete the first node
+  Node* temp;
+  if(n==1)
+  {
+    temp = head;
+    head = head->next;
+    delete temp;
+    return true;
+  }
+
+  //normal case operation 1: set curr to the (n-1)th node, providing that the linked list contain at least nth nodes
+  Node curr = head;
+  for(int i=1; i<n-1; i++)
+  {
+    if(curr->next->next!=null)
+      curr = curr->next;
+    //edge case 3: the number of nodes in the linked list is less than n
+    //solution: cannot proceed  
+    else  
+      return false;
+  }
+
+  //normal case operation 2: set the (n-1)th's "next" node to (n+1)th node and delete the nth node
+  //edge case 4: the nth node is the last element in the linked list
+  //solution: the following operation will work for edge case 4 since (n+1)th element will simply be null
+  temp = curr->next;
+  curr->next = temp->next;
+  delete temp;
+  return true;
+}
