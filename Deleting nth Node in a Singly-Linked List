@@ -8,7 +8,7 @@ struct Node
   int data;
 };
 
-bool deleteNode(int n, Node head)
+bool deleteNode(int n, Node* head)
 {
   //edge case 1: targeted node is not a natural number greater than 1
   //solution: cannot proceed
